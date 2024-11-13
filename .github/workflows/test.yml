@@ -23,7 +23,7 @@ jobs:
       war_artifact: ${{ steps.PushBuildArtifact-NonProd.outputs.war }}
     steps:
       - name: Checkout
-        fun: |
+        run: |
           echo "build"
   
   DevDeploy:
@@ -43,9 +43,6 @@ jobs:
     needs: [Build,DevDeploy]
     steps:
       - name: Deploy
-        env:
-          UAT_ASG_Name: ${{ vars.UAT_ASG_Name }}
-          WAR: ${{ needs.Build.outputs.war_artifact }}
         run: |
           echo "uat deployment"
    
@@ -56,9 +53,6 @@ jobs:
     needs: [Build]
     steps:
       - name: Deploy
-        env:
-          Prod_ASG_Name: ${{ vars.Prod_ASG_Name }}
-          WAR: ${{ needs.Build.outputs.war_artifact }}
         run: |
           echo "Prod deploy"
 
