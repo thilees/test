@@ -38,7 +38,7 @@ jobs:
   UATDeploy:
     name: UAT Deploy
     runs-on: ubuntu-latest
-    needs: [Build,DevDeploy]
+    needs: [DevDeploy]
     steps:
       - name: Deploy
         run: |
@@ -48,7 +48,7 @@ jobs:
     name: Prod Deploy
     if: github.event.inputs.environment == 'Prod'
     runs-on: ubuntu-latest
-    needs: [Build, UATDeploy]
+    needs: [UATDeploy]
     steps:
       - name: Deploy
         run: |
